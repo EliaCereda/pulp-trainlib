@@ -29,8 +29,9 @@ Available DNN layer names:
 'ReLU'      -> ReLU activation
 'MaxPool'   -> max pooling layer
 'AvgPool'   -> average pooling layer
-'Skipnode'  -> node at which data is taken and forwarded, to add an additional layer after the skip derivation simply substitute 'Skipnode' with any kind of layer
-'Sumnode'   -> node at which forwarded data from Skipnode is summed 
+'Skipnode'  -> node at which data is taken and passes forward, to add an additional layer after the skip derivation simply substitute 'Skipnode' with any kind of layer
+'Sumnode'   -> node at which data from Skipnode is summed 
+'InstNorm'  -> instance Normalization layer
 """
 
 import utils.DNN_Reader     as reader
@@ -48,10 +49,9 @@ proj_folder     = project_path + project_name + '/'
 # TRAINING PROPERTIES
 epochs          = 25
 batch_size      = 1                    # BATCHING NOT IMPLEMENTED!!
-learning_rate   = 0.5
+learning_rate   = 0.01
 optimizer       = "SGD"                # Name of PyTorch's optimizer
 loss_fn         = "MSELoss"            # Name of PyTorch's loss function
-
 
 # ------- NETWORK GRAPH --------
 # Manually define the list of the network (each layer in the list has its own properties in the relative index of each list)
@@ -84,10 +84,12 @@ data_layout_list = ['CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW
 # ----- END OF NETWORK GRAPH -----
 
 
+
+
 # EXECUTION PROPERTIES
 NUM_CORES       = 8
-L1_SIZE_BYTES   = 60*(2**10) * 1000
-
+L1_SIZE_BYTES   = 60*(2**10)
+USE_DMA = 'NO'  # choose whether to load all structures in L1 ('NO') or in L2 and use Single Buffer mode ('SB') or Double Buffer mode ('DB') 
 # OTHER PROPERTIES
 # Select if to read the network from an external source
 READ_MODEL_ARCH = False                # NOT IMPLEMENTED!!
@@ -113,15 +115,15 @@ else:
     print("Generating project at location "+proj_folder)
 
     # Check if Residual Connections are valid
-    print(sumnode_connections)
+    
     sumnode_connections = composer.AdjustResConnList(sumnode_connections)
-    print(sumnode_connections)
+
     composer.CheckResConn(layer_list, in_ch_list, out_ch_list, hin_list, win_list, sumnode_connections) 
 
     # Check if the network training fits L1
     memocc = composer.DNN_Size_Checker(layer_list, in_ch_list, out_ch_list, hk_list, wk_list, hin_list, win_list, 
                                 h_str_list, w_str_list, h_pad_list, w_pad_list,
-                                data_type_list, L1_SIZE_BYTES)
+                                data_type_list, L1_SIZE_BYTES, USE_DMA)
 
     print("DNN memory occupation: {} bytes of {} available L1 bytes ({}%).".format(memocc, L1_SIZE_BYTES, (memocc/L1_SIZE_BYTES)*100))
 
@@ -130,7 +132,7 @@ else:
                             layer_list, in_ch_list, out_ch_list, hk_list, wk_list, 
                             hin_list, win_list, h_str_list, w_str_list, h_pad_list, w_pad_list,
                             epochs, batch_size, learning_rate, optimizer, loss_fn,
-                            NUM_CORES, data_type_list, opt_mm_fw_list, opt_mm_wg_list, opt_mm_ig_list, sumnode_connections)
+                            NUM_CORES, data_type_list, opt_mm_fw_list, opt_mm_wg_list, opt_mm_ig_list, sumnode_connections, USE_DMA)
 
     print("PULP project generation successful!")
 
