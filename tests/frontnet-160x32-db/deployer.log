@@ -1,0 +1,38 @@
+Generating project at location ../../tests/frontnet-160x32-db/
+Max IM2COL size of 49152000 bytes @layer 0
+Max transposition / block transposition buffer size of 589824 @layer 19
+Additional 0 bytes allocated for mixed precision management (size @layer 0, Input)
+Max Layer size (considering only input data and coefficients): 2390016 bytes @layer 19
+Size of structures in L1 (Single Buffer Mode): 396 bytes
+[DNN_Size_Checker]: DNN overflows PULP L1 memory!!
+Expected occupation: 52132236 bytes vs 61440 available L1 (84850.64453125%)!
+Total L2 memory occupation: 7065888 bytes
+DNN memory occupation: 52132236 bytes of 61440 available L1 bytes (84850.64453125%).
+---------- DNN ARCHITECTURE ----------
+Layer 0: FP32 conv2d, in=[1, 96, 160], wgt=[32, 5, 5, 1], out=[32, 48, 80]
+Layer 1: FP32 InstNorm, in=[32, 48, 80], wgt=[32, 1, 1, 32], out=[32, 48, 80]
+Layer 2: FP32 ReLU, in=[32, 48, 80], wgt=[32, 1, 1, 32], out=[32, 48, 80]
+Layer 3: FP32 MaxPool, in=[32, 48, 80], wgt=[32, 2, 2, 32], out=[32, 24, 40]
+Layer 4: FP32 conv2d, in=[32, 24, 40], wgt=[32, 3, 3, 32], out=[32, 12, 20]
+Layer 5: FP32 InstNorm, in=[32, 12, 20], wgt=[32, 1, 1, 32], out=[32, 12, 20]
+Layer 6: FP32 ReLU, in=[32, 12, 20], wgt=[32, 1, 1, 32], out=[32, 12, 20]
+Layer 7: FP32 conv2d, in=[32, 12, 20], wgt=[32, 3, 3, 32], out=[32, 12, 20]
+Layer 8: FP32 InstNorm, in=[32, 12, 20], wgt=[32, 1, 1, 32], out=[32, 12, 20]
+Layer 9: FP32 ReLU, in=[32, 12, 20], wgt=[32, 1, 1, 32], out=[32, 12, 20]
+Layer 10: FP32 conv2d, in=[32, 12, 20], wgt=[64, 3, 3, 32], out=[64, 6, 10]
+Layer 11: FP32 InstNorm, in=[64, 6, 10], wgt=[64, 1, 1, 64], out=[64, 6, 10]
+Layer 12: FP32 ReLU, in=[64, 6, 10], wgt=[64, 1, 1, 64], out=[64, 6, 10]
+Layer 13: FP32 conv2d, in=[64, 6, 10], wgt=[64, 3, 3, 64], out=[64, 6, 10]
+Layer 14: FP32 InstNorm, in=[64, 6, 10], wgt=[64, 1, 1, 64], out=[64, 6, 10]
+Layer 15: FP32 ReLU, in=[64, 6, 10], wgt=[64, 1, 1, 64], out=[64, 6, 10]
+Layer 16: FP32 conv2d, in=[64, 6, 10], wgt=[128, 3, 3, 64], out=[128, 3, 5]
+Layer 17: FP32 InstNorm, in=[128, 3, 5], wgt=[128, 1, 1, 128], out=[128, 3, 5]
+Layer 18: FP32 ReLU, in=[128, 3, 5], wgt=[128, 1, 1, 128], out=[128, 3, 5]
+Layer 19: FP32 conv2d, in=[128, 3, 5], wgt=[128, 3, 3, 128], out=[128, 3, 5]
+Layer 20: FP32 InstNorm, in=[128, 3, 5], wgt=[128, 1, 1, 128], out=[128, 3, 5]
+Layer 21: FP32 ReLU, in=[128, 3, 5], wgt=[128, 1, 1, 128], out=[128, 3, 5]
+Layer 22: FP32 linear, in=[1920, 1, 1], wgt=[4, 1, 1, 1920], out=[4, 1, 1]
+--------------------------------------
+[deployment_utils.GenerateNet]: Setting last layer's output to float for PyTorch compatibility with loss function backward (future fix).
+[0, 1, 4, 5, 7, 8, 10, 11, 13, 14, 16, 17, 19, 20, 22]
+PULP project generation successful!

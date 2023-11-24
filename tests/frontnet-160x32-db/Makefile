@@ -52,6 +52,27 @@ MATMUL_TYPE_IG_L14?=0         # Selects which optimized matmul to be used in IN 
 MATMUL_TYPE_FW_L15?=0         # Selects which optimized matmul to be used in FW (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
 MATMUL_TYPE_WG_L15?=0         # Selects which optimized matmul to be used in WEIGHT GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
 MATMUL_TYPE_IG_L15?=0         # Selects which optimized matmul to be used in IN GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_FW_L16?=0         # Selects which optimized matmul to be used in FW (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_WG_L16?=0         # Selects which optimized matmul to be used in WEIGHT GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_IG_L16?=0         # Selects which optimized matmul to be used in IN GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_FW_L17?=0         # Selects which optimized matmul to be used in FW (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_WG_L17?=0         # Selects which optimized matmul to be used in WEIGHT GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_IG_L17?=0         # Selects which optimized matmul to be used in IN GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_FW_L18?=0         # Selects which optimized matmul to be used in FW (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_WG_L18?=0         # Selects which optimized matmul to be used in WEIGHT GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_IG_L18?=0         # Selects which optimized matmul to be used in IN GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_FW_L19?=0         # Selects which optimized matmul to be used in FW (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_WG_L19?=0         # Selects which optimized matmul to be used in WEIGHT GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_IG_L19?=0         # Selects which optimized matmul to be used in IN GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_FW_L20?=0         # Selects which optimized matmul to be used in FW (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_WG_L20?=0         # Selects which optimized matmul to be used in WEIGHT GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_IG_L20?=0         # Selects which optimized matmul to be used in IN GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_FW_L21?=0         # Selects which optimized matmul to be used in FW (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_WG_L21?=0         # Selects which optimized matmul to be used in WEIGHT GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_IG_L21?=0         # Selects which optimized matmul to be used in IN GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_FW_L22?=0         # Selects which optimized matmul to be used in FW (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_WG_L22?=0         # Selects which optimized matmul to be used in WEIGHT GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
+MATMUL_TYPE_IG_L22?=0         # Selects which optimized matmul to be used in IN GRAD (see mm_manager_list.txt or "MM_manager()" body to verify which one is called)
 # End of user settings
 
 NUM_MATMULS?=24		# Available standard matmuls in the library
@@ -114,6 +135,27 @@ APP_CFLAGS += -DMATMUL_TYPE_IG_L14=${MATMUL_TYPE_IG_L14}
 APP_CFLAGS += -DMATMUL_TYPE_FW_L15=${MATMUL_TYPE_FW_L15}
 APP_CFLAGS += -DMATMUL_TYPE_WG_L15=${MATMUL_TYPE_WG_L15}
 APP_CFLAGS += -DMATMUL_TYPE_IG_L15=${MATMUL_TYPE_IG_L15}
+APP_CFLAGS += -DMATMUL_TYPE_FW_L16=${MATMUL_TYPE_FW_L16}
+APP_CFLAGS += -DMATMUL_TYPE_WG_L16=${MATMUL_TYPE_WG_L16}
+APP_CFLAGS += -DMATMUL_TYPE_IG_L16=${MATMUL_TYPE_IG_L16}
+APP_CFLAGS += -DMATMUL_TYPE_FW_L17=${MATMUL_TYPE_FW_L17}
+APP_CFLAGS += -DMATMUL_TYPE_WG_L17=${MATMUL_TYPE_WG_L17}
+APP_CFLAGS += -DMATMUL_TYPE_IG_L17=${MATMUL_TYPE_IG_L17}
+APP_CFLAGS += -DMATMUL_TYPE_FW_L18=${MATMUL_TYPE_FW_L18}
+APP_CFLAGS += -DMATMUL_TYPE_WG_L18=${MATMUL_TYPE_WG_L18}
+APP_CFLAGS += -DMATMUL_TYPE_IG_L18=${MATMUL_TYPE_IG_L18}
+APP_CFLAGS += -DMATMUL_TYPE_FW_L19=${MATMUL_TYPE_FW_L19}
+APP_CFLAGS += -DMATMUL_TYPE_WG_L19=${MATMUL_TYPE_WG_L19}
+APP_CFLAGS += -DMATMUL_TYPE_IG_L19=${MATMUL_TYPE_IG_L19}
+APP_CFLAGS += -DMATMUL_TYPE_FW_L20=${MATMUL_TYPE_FW_L20}
+APP_CFLAGS += -DMATMUL_TYPE_WG_L20=${MATMUL_TYPE_WG_L20}
+APP_CFLAGS += -DMATMUL_TYPE_IG_L20=${MATMUL_TYPE_IG_L20}
+APP_CFLAGS += -DMATMUL_TYPE_FW_L21=${MATMUL_TYPE_FW_L21}
+APP_CFLAGS += -DMATMUL_TYPE_WG_L21=${MATMUL_TYPE_WG_L21}
+APP_CFLAGS += -DMATMUL_TYPE_IG_L21=${MATMUL_TYPE_IG_L21}
+APP_CFLAGS += -DMATMUL_TYPE_FW_L22=${MATMUL_TYPE_FW_L22}
+APP_CFLAGS += -DMATMUL_TYPE_WG_L22=${MATMUL_TYPE_WG_L22}
+APP_CFLAGS += -DMATMUL_TYPE_IG_L22=${MATMUL_TYPE_IG_L22}
 APP_LDFLAGS += -lm
 
 # STATISTICS
