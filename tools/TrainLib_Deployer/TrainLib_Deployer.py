@@ -41,8 +41,8 @@ import utils.DNN_Composer   as composer
 # ---------------------
 
 # GENERAL PROPERTIES
-project_name    = 'Test_CNN'
-project_path    = './'
+project_name    = 'frontnet-160x32'
+project_path    = '../../tests/'
 proj_folder     = project_path + project_name + '/'
 
 # TRAINING PROPERTIES
@@ -55,37 +55,38 @@ loss_fn         = "MSELoss"            # Name of PyTorch's loss function
 
 # ------- NETWORK GRAPH --------
 # Manually define the list of the network (each layer in the list has its own properties in the relative index of each list)
-layer_list      = [ 'conv2d', 'ReLU','PW',  'conv2d','Sumnode', 'ReLU', 'linear', 'Skipnode','Skipnode', 'linear' ,'Sumnode', 'Sumnode']
+layer_list      = [ 'conv2d', 'ReLU', 'MaxPool',   'conv2d', 'ReLU', 'conv2d', 'ReLU',   'conv2d', 'ReLU', 'conv2d', 'ReLU',   'conv2d', 'ReLU', 'conv2d', 'ReLU',   'linear']
 # Layer properties
-sumnode_connections = [0, 0, 1, 0, 1, 0, 0, 2,  3, 0, 2, 3]           #For Skipnode and Sumnode only, indicates the layer which is connected to
+sumnode_connections = \
+                  [   0,  0,  0,    0,  0,  0,  0,    0,  0,  0,  0,     0,   0,   0,   0,      0]           #For Skipnode and Sumnode only, indicates the layer which is connected to
 
-in_ch_list      = [ 1, 4, 4, 4, 4, 4, 4*4*4, 10, 10, 10, 10, 10]          # Linear: size of input vector
-out_ch_list     = [ 4, 4, 4, 4, 4, 4, 10, 10, 10, 10, 10, 10]            # Linear: size of output vector
-hk_list         = [ 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]             # Linear: = 1
-wk_list         = [ 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]             # Linear: = 1
-# Input activations' properties
-hin_list        = [ 6, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1]             # Linear: = 1
-win_list        = [ 6, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1]             # Linear: = 1
-# Convolutional strides
-h_str_list      = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]             # Only for conv2d, maxpool, avgpool
-w_str_list      = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]             # Only for conv2d, maxpool, avgpool
+in_ch_list      = [   1, 32, 32,   32, 32, 32, 32,   32, 64, 64, 64,    64, 128, 128, 128,   1920] # Linear: size of input vector
+out_ch_list     = [  32, 32, 32,   32, 32, 32, 32,   64, 64, 64, 64,   128, 128, 128, 128,      4] # Linear: size of output vector
+hk_list         = [   5,  1,  2,    3,  1,  3,  1,    3,  1,  3,  1,     3,   1,   3,   1,      1] # Linear: = 1
+wk_list         = [   5,  1,  2,    3,  1,  3,  1,    3,  1,  3,  1,     3,   1,   3,   1,      1] # Linear: = 1
+# Input activations' properties 
+hin_list        = [  96, 48, 48,   24, 12, 12, 12,   12,  6,  6,  6,     6,   3,   3,   3,      1] # Linear: = 1
+win_list        = [ 160, 80, 80,   40, 20, 20, 20,   20, 10, 10, 10,    10,   5,   5,   5,      1] # Linear: = 1
+# Convolutional strides 
+h_str_list      = [   2,  1,  2,    2,  1,  1,  1,    2,  1,  1,  1,     2,   1,   1,   1,      1] # Only for conv2d, maxpool, avgpool
+w_str_list      = [   2,  1,  2,    2,  1,  1,  1,    2,  1,  1,  1,     2,   1,   1,   1,      1] # Only for conv2d, maxpool, avgpool
 # Padding (bilateral, adds the specified padding to both image sides)
-h_pad_list      = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]             # Only for conv2d, DW
-w_pad_list      = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]             # Only for conv2d, DW
-# Define the lists to call the optimized matmuls for each layer (see mm_manager_list.txt, mm_manager_list_fp16.txt or mm_manager function body)
-opt_mm_fw_list  = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-opt_mm_wg_list  = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-opt_mm_ig_list  = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+h_pad_list      = [   2,  0,  0,    1,  0,  1,  0,    1,  0,  1,  0,     1,   0,   1,   0,      0] # Only for conv2d, DW
+w_pad_list      = [   2,  0,  0,    1,  0,  1,  0,    1,  0,  1,  0,     1,   0,   1,   0,      0] # Only for conv2d, DW
+# Define the lists to call the optimized matmuls for each layer (see mm_manager_list.txt, mm_manager_list_FP32.txt or mm_manager function body)
+opt_mm_fw_list  = [   0,  0,  0,    0,  0,  0,  0,    0,  0,  0,  0,     0,   0,   0,   0,      0]
+opt_mm_wg_list  = [   0,  0,  0,    0,  0,  0,  0,    0,  0,  0,  0,     0,   0,   0,   0,      0]
+opt_mm_ig_list  = [   0,  0,  0,    0,  0,  0,  0,    0,  0,  0,  0,     0,   0,   0,   0,      0]
 # Data type list for layer-by-layer deployment (mixed precision)
-data_type_list   = ['FP16', 'FP16', 'FP16', 'FP16', 'FP16', 'FP16', 'FP16', 'FP16', 'FP16', 'FP16', 'FP16', 'FP16']
+data_type_list   = ['FP32', 'FP32', 'FP32', 'FP32', 'FP32', 'FP32', 'FP32', 'FP32', 'FP32', 'FP32', 'FP32', 'FP32', 'FP32', 'FP32', 'FP32', 'FP32']
 # Data layout list (CHW or HWC) 
-data_layout_list = ['CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW']   # TO DO
+data_layout_list = ['CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW', 'CHW']   # TO DO
 # ----- END OF NETWORK GRAPH -----
 
 
 # EXECUTION PROPERTIES
 NUM_CORES       = 8
-L1_SIZE_BYTES   = 60*(2**10)
+L1_SIZE_BYTES   = 60*(2**10) * 1000
 
 # OTHER PROPERTIES
 # Select if to read the network from an external source

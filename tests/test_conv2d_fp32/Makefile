@@ -31,7 +31,7 @@ APP_SRCS = main.c net.c
 
 DATA_TYPE?='fp32'
 APP_CFLAGS += -I. -I$(TRAIN_LIB)/include
-APP_CFLAGS += -O3 -g3
+APP_CFLAGS += -O3 -g3 -Wno-error=sign-compare
 APP_CFLAGS += -DFABRIC
 APP_CFLAGS += -DCLUSTER
 APP_CFLAGS += -DNUM_CORES=$(NUM_CORES)
